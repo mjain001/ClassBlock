@@ -1,0 +1,23 @@
+{
+  "name": "classblock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjain001/classblock.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mjain001/classblock/issues"
+  },
+  "homepage": "https://github.com/mjain001/classblock#readme",
+  "dependencies": {
+    "mongoose": "^5.10.6"
+  }
+}
