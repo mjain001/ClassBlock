@@ -1,21 +1,37 @@
 const mongoose = require("mongoose");
 
 const likeschema = new mongoose.Schema({
-  user_Id: Number,
+  user_Id: {
+    type: Number,
+    unique: true,
+    required: true,
+  },
   Datecreated: Date,
   Dateupdated: Date,
 });
 
 const commentschema = new mongoose.Schema({
-  user_Id: Number,
+  user_Id: {
+    type: Number,
+    unique: true,
+    required: true,
+  },
   comment: String,
   Datecreated: Date,
   Dateupdated: Date,
 });
 
 const postschema = new mongoose.Schema({
-  user_Id: Number,
-  userName: String,
+  user_Id: {
+    type: Number,
+    unique: true,
+    required: true,
+  },
+  userName: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   Datecreated: Date,
   Dateupdated: Date,
   comments: [commentschema],

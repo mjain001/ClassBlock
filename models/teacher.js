@@ -5,7 +5,10 @@ const teacherschema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Profileurl: String,
+  Emoployeeid: {
+    type: Number,
+    required: true,
+  },
   Mobilenumber: {
     type: Number,
     required: true,
