@@ -17,8 +17,14 @@ const classroomschema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  Datecreated: Date,
-  Dateupdated: Date,
+  Datecreated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
+  Dateupdated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
   isCR: Boolean,
 });
 const classroom = mongoose.model("classroom", classroomschema);

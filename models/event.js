@@ -1,4 +1,11 @@
 const mongoose = require("mongoose");
+var options = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+var today = new Date();
 
 const eventschema = new mongoose.Schema({
   Name: {
@@ -14,8 +21,14 @@ const eventschema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Datecreated: Date,
-  Dateupdated: Date,
+  Datecreated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
+  Dateupdated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
 });
 
 const event = mongoose.model("event", eventschema);

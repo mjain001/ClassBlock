@@ -39,8 +39,14 @@ const studentschema = new mongoose.Schema({
   },
   Year: String,
   Branch: String,
-  Datecreated: Date,
-  Dateupdated: Date,
+  Datecreated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
+  Dateupdated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
   isCR: Boolean,
 });
 const Student = mongoose.model("student", studentschema);

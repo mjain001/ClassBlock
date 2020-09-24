@@ -7,6 +7,7 @@ const teacherschema = new mongoose.Schema({
   },
   Emoployeeid: {
     type: Number,
+    unique: true,
     required: true,
   },
   Mobilenumber: {
@@ -15,6 +16,7 @@ const teacherschema = new mongoose.Schema({
   },
   Mailid: {
     type: String,
+    unique: true,
     required: true,
   },
   DOB: {
@@ -27,9 +29,14 @@ const teacherschema = new mongoose.Schema({
     required: true,
   },
   Biourl: String,
-  Enroll: String,
-  Datecreated: Date,
-  Dateupdated: Date,
+  Datecreated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
+  Dateupdated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
 });
 
 const Teacher = mongoose.model("teacher", teacherschema);

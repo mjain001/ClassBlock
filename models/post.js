@@ -6,8 +6,14 @@ const likeschema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  Datecreated: Date,
-  Dateupdated: Date,
+  Datecreated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
+  Dateupdated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
 });
 
 const commentschema = new mongoose.Schema({
@@ -17,8 +23,14 @@ const commentschema = new mongoose.Schema({
     required: true,
   },
   comment: String,
-  Datecreated: Date,
-  Dateupdated: Date,
+  Datecreated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
+  Dateupdated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
 });
 
 const postschema = new mongoose.Schema({
@@ -32,8 +44,14 @@ const postschema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  Datecreated: Date,
-  Dateupdated: Date,
+  Datecreated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
+  Dateupdated: {
+    type: Date,
+    default: today.toLocaleDateString("en-US"),
+  },
   comments: [commentschema],
   likes: [likeschema],
 });
