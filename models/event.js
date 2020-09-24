@@ -1,11 +1,5 @@
 const mongoose = require("mongoose");
-var options = {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
-var today = new Date();
+const today = require("./date.js");
 
 const eventschema = new mongoose.Schema({
   Name: {
