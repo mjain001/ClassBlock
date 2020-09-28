@@ -5,7 +5,7 @@ const studentschema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Enrollment: {
+  enrollment: {
     type: String,
     unique: true,
     required: true,
@@ -14,41 +14,65 @@ const studentschema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Mobilenumber: {
+  mobilenumber: {
     type: Number,
     unique: true,
     required: true,
   },
-  Mailid: {
+  email: {
     type: String,
     unique: true,
     required: true,
   },
-  DOB: {
+  password:{
+    type:String,
+    required:true,
+  },
+  followedByStudent:{
+    type:[mongoose.Schema.Types.ObjectId],
+    ref:'Student',
+  },
+  followedByTeacher:{
+    type:[mongoose.Schema.Types.ObjectId],
+    ref:'Teacher', 
+  },
+  studentFollowing:{
+    type:[mongoose.Schema.Types.ObjectId],
+    ref:'Student',
+  },
+  teacherFollowing:{
+    type:[mongoose.Schema.Types.ObjectId],
+    ref:'Teacher',
+  },
+  dob: {
     type: Date,
     required: true,
   },
-  Profileurl: {
+  profileurl: {
+    type: String, 
+    unique: true,
+  },
+  resume: {
     type: String,
     unique: true,
-    required: true,
   },
-  Resumeurl: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  Year: String,
-  Branch: String,
-  Datecreated: {
+  year: String,
+  branch: String,
+  datecreated: {
     type: Date,
     default: today.toLocaleDateString("en-US"),
   },
-  Dateupdated: {
+  dateupdated: {
     type: Date,
     default: today.toLocaleDateString("en-US"),
   },
-  isCR: Boolean,
+  isCR:{
+    type: Boolean,
+    default: false 
+  }
 });
 const Student = mongoose.model("student", studentschema);
 module.exports = Student;
+//following are to be added
+//password field
+//followers and following list

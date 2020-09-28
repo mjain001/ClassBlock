@@ -1,39 +1,57 @@
 const mongoose = require("mongoose");
 const today = require("./date.js");
 const teacherschema = new mongoose.Schema({
-  Name: {
+  name: {
     type: String,
     required: true,
   },
-  Emoployeeid: {
-    type: Number,
-    unique: true,
-    required: true,
-  },
-  Mobilenumber: {
-    type: Number,
-    required: true,
-  },
-  Mailid: {
+  employeeid: {
     type: String,
     unique: true,
     required: true,
   },
-  DOB: {
+  mobilenumber: {
+    type: Number,
+    required: true,
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password:{
+    type:String,
+    required:true,
+  },
+  followedByStudent:{
+    type:[mongoose.Schema.Types.ObjectId],
+    ref:'Student',
+  },
+  followedByTeacher:{
+    type:[mongoose.Schema.Types.ObjectId],
+    ref:'Teacher', 
+  },
+  studentFollowing:{
+    type:[mongoose.Schema.Types.ObjectId],
+    ref:'Student',
+  },
+  teacherFollowing:{
+    type:[mongoose.Schema.Types.ObjectId],
+    ref:'Teacher',
+  },
+  dob: {
+    type: Date,
+    },
+  branch: {
     type: String,
     required: true,
   },
-  Year: Date,
-  Branch: {
-    type: String,
-    required: true,
-  },
-  Biourl: String,
-  Datecreated: {
+  biourl: String,
+  datecreated: {
     type: Date,
     default: today.toLocaleDateString("en-US"),
   },
-  Dateupdated: {
+  dateupdated: {
     type: Date,
     default: today.toLocaleDateString("en-US"),
   },

@@ -1,32 +1,22 @@
 const mongoose = require("mongoose");
 const today = require("./date.js");
 const classroomschema = new mongoose.Schema({
-  studentName: {
+  students: [Object],
+  teachers: {
+    type: [Object],
+  },
+  subjectName: {
     type: String,
     required: true,
   },
-  teacherName: {
-    type: String,
-    required: true,
-  },
-  SubjectName: {
-    type: String,
-    required: true,
-  },
-  teacherProfileurl: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  Datecreated: {
+  datecreated: {
     type: Date,
     default: today.toLocaleDateString("en-US"),
   },
-  Dateupdated: {
+  dateupdated: {
     type: Date,
     default: today.toLocaleDateString("en-US"),
-  },
-  isCR: Boolean,
+  }
 });
 const classroom = mongoose.model("classroom", classroomschema);
 

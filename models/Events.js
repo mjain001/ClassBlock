@@ -2,28 +2,28 @@ const mongoose = require("mongoose");
 const today = require("./date.js");
 
 const eventschema = new mongoose.Schema({
-  Name: {
+  name: {
     type: String,
     required: true,
   },
-  EventUrl: {
+  eventurl: {
     type: String,
     unique: true,
     required: true,
   },
-  Date: {
+  date: {
     type: String,
     required: true,
   },
-  Datecreated: {
+  datecreated: {
     type: Date,
     default: today.toLocaleDateString("en-US"),
   },
-  Dateupdated: {
+  dateupdated: {
     type: Date,
     default: today.toLocaleDateString("en-US"),
   },
 });
 
-const event = mongoose.model("event", eventschema);
-module.exports = event;
+const events = mongoose.model("events", eventschema);
+module.exports = events;
