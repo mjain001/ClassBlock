@@ -10,6 +10,10 @@ const studentschema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   program: {
     type: String,
     required: true,

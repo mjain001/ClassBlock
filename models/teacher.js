@@ -10,6 +10,10 @@ const teacherschema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   Mobilenumber: {
     type: Number,
     required: true,

@@ -11,6 +11,10 @@ const eventschema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  Eventpassword: {
+    type: String,
+    required: true,
+  },
   Date: {
     type: String,
     required: true,
