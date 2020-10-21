@@ -12,49 +12,44 @@ const studentschema = new mongoose.Schema({
   },
   program: {
     type: String,
-    required: true,
   },
   mobilenumber: {
     type: Number,
     unique: true,
-    required: true,
   },
   email: {
     type: String,
     unique: true,
     required: true,
   },
-  password:{
-    type:String,
-    required:true,
+  password: {
+    type: String,
+    required: true,
   },
-  followedByStudent:{
-    type:[mongoose.Schema.Types.ObjectId],
-    ref:'Student',
+  followedByStudent: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Student",
   },
-  followedByTeacher:{
-    type:[mongoose.Schema.Types.ObjectId],
-    ref:'Teacher', 
+  followedByTeacher: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Teacher",
   },
-  studentFollowing:{
-    type:[mongoose.Schema.Types.ObjectId],
-    ref:'Student',
+  studentFollowing: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Student",
   },
-  teacherFollowing:{
-    type:[mongoose.Schema.Types.ObjectId],
-    ref:'Teacher',
+  teacherFollowing: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Teacher",
   },
   dob: {
     type: Date,
-    required: true,
   },
   profileurl: {
-    type: String, 
-    unique: true,
+    type: String,
   },
   resume: {
     type: String,
-    unique: true,
   },
   year: String,
   branch: String,
@@ -66,10 +61,10 @@ const studentschema = new mongoose.Schema({
     type: Date,
     default: today.toLocaleDateString("en-US"),
   },
-  isCR:{
+  isCR: {
     type: Boolean,
-    default: false 
-  }
+    default: false,
+  },
 });
 const Student = mongoose.model("student", studentschema);
 module.exports = Student;

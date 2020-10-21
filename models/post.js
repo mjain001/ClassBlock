@@ -99,11 +99,11 @@ const postschema = new mongoose.Schema({
     default: today.toLocaleDateString("en-US"),
   },
   comments: [commentschema],
-  likes: [likeschema],
+ // like: [likeschema]
 });
 
 const Post = mongoose.model("post", postschema);
-const Like = mongoose.model("like", likeschema);
+//const Like = mongoose.model("like", likeschema);
 const Comment = mongoose.model("comment", commentschema);
 
 module.exports = Post;

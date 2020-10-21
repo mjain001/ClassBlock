@@ -12,39 +12,37 @@ const teacherschema = new mongoose.Schema({
   },
   mobilenumber: {
     type: Number,
-    required: true,
   },
   email: {
     type: String,
     unique: true,
     required: true,
   },
-  password:{
-    type:String,
-    required:true,
+  password: {
+    type: String,
+    required: true,
   },
-  followedByStudent:{
-    type:[mongoose.Schema.Types.ObjectId],
-    ref:'Student',
+  followedByStudent: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Student",
   },
-  followedByTeacher:{
-    type:[mongoose.Schema.Types.ObjectId],
-    ref:'Teacher', 
+  followedByTeacher: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Teacher",
   },
-  studentFollowing:{
-    type:[mongoose.Schema.Types.ObjectId],
-    ref:'Student',
+  studentFollowing: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Student",
   },
-  teacherFollowing:{
-    type:[mongoose.Schema.Types.ObjectId],
-    ref:'Teacher',
+  teacherFollowing: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Teacher",
   },
   dob: {
     type: Date,
-    },
+  },
   branch: {
     type: String,
-    required: true,
   },
   biourl: String,
   datecreated: {
