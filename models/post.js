@@ -7,7 +7,7 @@ const Student = require("./student.js");
 //     type: mongoose.Schema.Types.ObjectId,
 //     unique: false,
 //     refPath:'userType',
-//     required: true, 
+//     required: true,
 //   },
 //   userType:{
 //     type:String,
@@ -28,30 +28,30 @@ const Student = require("./student.js");
 
 const commentschema = new mongoose.Schema({
   postedBy: {
-    type:mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
-    refPath:'userType',
+    refPath: "userType",
   },
-  userType:{
-    type:String,
-    required:true,
-    enum:['Student','Teacher'],
+  userType: {
+    type: String,
+    required: true,
+    enum: ["Student", "Teacher"],
   },
   body: {
-   type:String,
-   required:true,
+    type: String,
+    required: true,
   },
-  likedByStudent:{  
-    type:[mongoose.Schema.Types.ObjectId],
-    ref:'Student',
+  likedByStudent: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Student",
   },
-  likedByTeacher:{
-    type:[mongoose.Schema.Types.ObjectId],
-    ref:'Teacher',
+  likedByTeacher: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Teacher",
   },
-  reply:{ 
-    type:[mongoose.Schema.Types.ObjectId],
-    ref:'Comment',
+  reply: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Comment",
   },
   Datecreated: {
     type: Date,
@@ -65,30 +65,29 @@ const commentschema = new mongoose.Schema({
 
 const postschema = new mongoose.Schema({
   postedBy: {
-    type:mongoose.Schema.Types.ObjectId,
-    refPath:'userType',
-    required:true,
+    type: mongoose.Schema.Types.ObjectId,
+    refPath: "userType",
+    required: true,
   },
-  userType:{
-    type:String,
-    required:true,
-    enum:['Student','Teacher'],
+  userType: {
+    type: String,
+    required: true,
+    enum: ["Student", "Teacher"],
   },
-  likedByStudent:{
-    type:[mongoose.Schema.Types.ObjectId],
-    ref:'Student',
+  likedByStudent: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Student",
   },
-  likedByTeacher:{
-    type:[mongoose.Schema.Types.ObjectId],
-    ref:'Teacher',
+  likedByTeacher: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Teacher",
   },
-  content:{
-    type:String,
-    required:true, 
-  }, 
-  media:{
-    type:String,
-    required:true,
+  content: {
+    type: String,
+    required: true,
+  },
+  media: {
+    type: String,
   },
   Datecreated: {
     type: Date,
@@ -99,7 +98,7 @@ const postschema = new mongoose.Schema({
     default: today.toLocaleDateString("en-US"),
   },
   comments: [commentschema],
- // like: [likeschema]
+  // like: [likeschema]
 });
 
 const Post = mongoose.model("post", postschema);

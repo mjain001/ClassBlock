@@ -53,7 +53,12 @@ router.post("/login", (req, res) => {
     bcrypt.compare(password, student.password).then((isMatch) => {
       console.log("password is matching", isMatch);
       if (isMatch) {
-        const payload = { id: student._id, enrollment: student.enrollment };
+        const payload = {
+          id: student._id,
+          enrollment: student.enrollment,
+          name: student.name,
+          type: "Student",
+        };
         jwt.sign(payload, secret, { expiresIn: 3600 }, (error, token) => {
           if (error) res.json({ error }).status(401);
           res.json({ success: true, token: `Bearer ${token}` });

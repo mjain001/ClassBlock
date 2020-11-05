@@ -72,7 +72,12 @@ router.post("/login", (req, res) => {
     if (!teacher) res.json({ msg: "No teacher with this employeeid exists" });
     bcrypt.compare(password, teacher.password).then((isMatch) => {
       if (isMatch) {
-        const payload = { id: teacher._id, employeeid: teacher.employeeid };
+        const payload = {
+          id: teacher._id,
+          employeeid: teacher.employeeid,
+          name: teacher.name,
+          type: "Teacher",
+        };
         jwt.sign(payload, secret, (error, token) => {
           if (error) res.json({ error }).status(401);
           res.json({ success: true, token: `Bearer ${token}` }).status(200);
