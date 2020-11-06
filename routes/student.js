@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { secret } = require("../config/keys");
-const Student = require("../models/student");
+const Student = require("../models/Student");
 const e = require("express");
 const router = express.Router();
 const passport = require("passport");
@@ -72,31 +72,34 @@ router.put(
   "/follower",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    student.findByIdAndUpdate(req.body.followId),
+    Student.findByIdAndUpdate(
+      req.body.followId,
       {
-        $push: { followedByStudent: req.body.id },
+        $push: { followedByStudent: req.user.id },
       },
       {
         new: true,
-      },
-      (err, result) => {
-        if (err) {
-          return res.status(422).json({ error: err });
-        }
-      };
-    student.findByIdAndUpdate(req.body.followId),
+      }
+    ).exec((err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      }
+    });
+    Student.findByIdAndUpdate(
+      req.user.id,
       {
         $push: { studentFollowing: req.body.followId },
       },
       {
         new: true,
       }
-        .then((result) => {
-          res.json(result);
-        })
-        .catch((err) => {
-          return res.status(422).json({ error: err });
-        });
+    ).exec((err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      } else {
+        res.json(result).status(200);
+      }
+    });
   }
 );
 
