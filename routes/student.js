@@ -67,6 +67,39 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+router.put(
+  "/follower",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    student.findByIdAndUpdate(req.body.followId),
+      {
+        $push: { followedByStudent: req.body.id },
+      },
+      {
+        new: true,
+      },
+      (err, result) => {
+        if (err) {
+          return res.status(422).json({ error: err });
+        }
+      };
+    student.findByIdAndUpdate(req.body.followId),
+      {
+        $push: { studentFollowing: req.body.followId },
+      },
+      {
+        new: true,
+      }
+        .then((result) => {
+          res.json(result);
+        })
+        .catch((err) => {
+          return res.status(422).json({ error: err });
+        });
+  }
+);
+
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
