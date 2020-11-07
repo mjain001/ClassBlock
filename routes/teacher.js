@@ -125,4 +125,42 @@ router.put(
     });
   }
 );
+
+//teacher follow student
+router.put(
+  "/follow/student",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Teacher.findByIdAndUpdate(
+      req.user.id,
+      {
+        $push: { teacherFollowing: req.body.followId },
+      },
+      {
+        new: true,
+      }
+    ).exec((err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      }
+    });
+    const Student = mongoose.model("student");
+    Student.findByIdAndUpdate(
+      req.body.followId,
+      {
+        $push: { followedByStudent: req.user.id },
+      },
+      {
+        new: true,
+      }
+    ).exec((err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  }
+);
+
 module.exports = router;

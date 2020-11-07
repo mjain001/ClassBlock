@@ -7,8 +7,6 @@ const e = require("express");
 const router = express.Router();
 const passport = require("passport");
 const mongoose = require("mongoose");
-const Teacher = mongoose.modelNames();
-console.log(Teacher);
 
 router.get("/id", (req, res, next) => {
   res.json({ msg: "student id  is working" });
@@ -113,9 +111,9 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Student.findByIdAndUpdate(
-      req.body.followId,
+      req.user.id,
       {
-        $push: { teacherFollowing: req.user.id },
+        $push: { teacherFollowing: req.body.followId },
       },
       {
         new: true,
@@ -123,14 +121,13 @@ router.put(
     ).exec((err, result) => {
       if (err) {
         return res.status(422).json({ error: err });
-      } else {
-        res.json(result);
       }
     });
+    const Teacher = mongoose.model("teacher");
     Teacher.findByIdAndUpdate(
-      req.user.id,
+      req.body.followId,
       {
-        $push: { followedByStudent: req.body.followId },
+        $push: { followedByStudent: req.user.id },
       },
       {
         new: true,
