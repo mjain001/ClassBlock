@@ -39,6 +39,7 @@ db.once("open", () => {
 });
 
 const port = process.env.PORT || 5000;
+console.log(mongoose.modelNames());
 app.listen(port, () => {
   console.log(`Server running on port number :${port}`);
 });

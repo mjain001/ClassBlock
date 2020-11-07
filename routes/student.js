@@ -6,6 +6,9 @@ const Student = require("../models/Student");
 const e = require("express");
 const router = express.Router();
 const passport = require("passport");
+const mongoose = require("mongoose");
+const Teacher = mongoose.modelNames();
+console.log(Teacher);
 
 router.get("/id", (req, res, next) => {
   res.json({ msg: "student id  is working" });
@@ -68,8 +71,9 @@ router.post("/login", (req, res) => {
   });
 });
 
+//student follow student
 router.put(
-  "/follower",
+  "/follow/student",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Student.findByIdAndUpdate(
@@ -98,6 +102,44 @@ router.put(
         return res.status(422).json({ error: err });
       } else {
         res.json(result).status(200);
+      }
+    });
+  }
+);
+
+// student follow teacher
+router.put(
+  "/follow/teacher",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Student.findByIdAndUpdate(
+      req.body.followId,
+      {
+        $push: { teacherFollowing: req.user.id },
+      },
+      {
+        new: true,
+      }
+    ).exec((err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      } else {
+        res.json(result);
+      }
+    });
+    Teacher.findByIdAndUpdate(
+      req.user.id,
+      {
+        $push: { followedByStudent: req.body.followId },
+      },
+      {
+        new: true,
+      }
+    ).exec((err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      } else {
+        res.status(200).json(result);
       }
     });
   }

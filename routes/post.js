@@ -86,6 +86,56 @@ router.put(
   }
 );
 
+//like a post
+router.put(
+  "/like",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    post
+      .findByIdAndUpdate(
+        req.body.postId,
+        {
+          $push: { likes: req.user.id },
+        },
+        {
+          new: true,
+        }
+      )
+      .exec((err, result) => {
+        if (err) {
+          return res.status(422).json({ error: err });
+        } else {
+          res.status(200).json(result);
+        }
+      });
+  }
+);
+
+//unlike a post
+router.put(
+  "/unlike",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    post
+      .findByIdAndUpdate(
+        req.body.postId,
+        {
+          $pull: { likes: req.user.id },
+        },
+        {
+          new: true,
+        }
+      )
+      .exec((err, result) => {
+        if (err) {
+          return res.status(422).json({ error: err });
+        } else {
+          res.status(200).json(result);
+        }
+      });
+  }
+);
+
 router.get(
   "/all",
   passport.authenticate("jwt", { session: false }),

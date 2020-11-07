@@ -1,7 +1,10 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const passport = require("passport");
 const Teacher = require("../models/teacher");
+const mongoose = require("mongoose");
+//const Student = mongoose.model("students");
 const { secret } = require("../config/keys");
 const router = express.Router();
 
@@ -87,4 +90,39 @@ router.post("/login", (req, res) => {
   });
 });
 
+//teacher follow teacher
+router.put(
+  "/teacherfollow",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Teacher.findByIdAndUpdate(
+      req.body.followId,
+      {
+        $push: { followedByTeacher: req.user.id },
+      },
+      {
+        new: true,
+      }
+    ).exec((err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      }
+    });
+    Teacher.findByIdAndUpdate(
+      req.user.id,
+      {
+        $push: { teacherFollowing: req.body.followId },
+      },
+      {
+        new: true,
+      }
+    ).exec((err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      } else {
+        res.json(result).status(200);
+      }
+    });
+  }
+);
 module.exports = router;
