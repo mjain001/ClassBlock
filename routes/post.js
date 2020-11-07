@@ -88,14 +88,14 @@ router.put(
 
 //like a post
 router.put(
-  "/like",
+  "/like/student",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     post
       .findByIdAndUpdate(
         req.body.postId,
         {
-          $push: { likes: req.user.id },
+          $push: { likedByStudent: req.user.id },
         },
         {
           new: true,
@@ -113,14 +113,65 @@ router.put(
 
 //unlike a post
 router.put(
-  "/unlike",
+  "/unlike/student",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     post
       .findByIdAndUpdate(
         req.body.postId,
         {
-          $pull: { likes: req.user.id },
+          $pull: { likedByStudent: req.user.id },
+        },
+        {
+          new: true,
+        }
+      )
+      .exec((err, result) => {
+        if (err) {
+          return res.status(422).json({ error: err });
+        } else {
+          res.status(200).json(result);
+        }
+      });
+  }
+);
+
+//like by teacher
+//like a post
+router.put(
+  "/like/teacher",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    post
+      .findByIdAndUpdate(
+        req.body.postId,
+        {
+          $push: { likedByTeacher: req.user.id },
+        },
+        {
+          new: true,
+        }
+      )
+      .exec((err, result) => {
+        if (err) {
+          return res.status(422).json({ error: err });
+        } else {
+          res.status(200).json(result);
+        }
+      });
+  }
+);
+
+//unlike a post
+router.put(
+  "/unlike/teacher",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    post
+      .findByIdAndUpdate(
+        req.body.postId,
+        {
+          $pull: { likedByTeacher: req.user.id },
         },
         {
           new: true,
