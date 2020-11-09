@@ -1,44 +1,35 @@
-const mongoose = require("mongoose");
-const today = require("./date.js");
+const mongoose = require('mongoose')
+const today = require('./date.js')
 
-const commentschema = new mongoose.Schema({
+const comment = new mongoose.Schema({
   postedBy: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    refPath: "userType",
-  },
-  userType: {
-    type: String,
-    required: true,
-    enum: ["Student", "Teacher"],
+    refPath: 'User'
   },
   body: {
     type: String,
-    required: true,
+    required: true
   },
-  likedByStudent: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: "Student",
-  },
-  likedByTeacher: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: "Teacher",
+  likes: {
+    type: [mongoose.Types.ObjectId],
+    ref: 'User'
   },
   reply: {
     type: [mongoose.Schema.Types.ObjectId],
-    ref: "Comment",
+    ref: 'Reply'
   },
-  Datecreated: {
+  date_created: {
     type: Date,
-    default: today.toLocaleDateString("en-US"),
+    default: today.toLocaleDateString('en-US')
   },
-  Dateupdated: {
+  date_updated: {
     type: Date,
-    default: today.toLocaleDateString("en-US"),
-  },
-});
+    default: today.toLocaleDateString('en-US')
+  }
+})
 
 //const Like = mongoose.model("like", likeschema);
-const Comment = mongoose.model("comment", commentschema);
+const Comment = mongoose.model('Comment', comment)
 
-module.exports = Comment;
+module.exports = Comment

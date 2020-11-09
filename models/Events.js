@@ -1,29 +1,65 @@
-const mongoose = require("mongoose");
-const today = require("./date.js");
+const mongoose = require('mongoose')
+const today = require('./date.js')
 
-const eventschema = new mongoose.Schema({
+const event = new mongoose.Schema({
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   name: {
     type: String,
-    required: true,
+    required: true
   },
-  eventurl: {
+  description: {
+    type: 'String'
+  },
+  venue: {
+    type: 'String'
+  },
+  likes: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'User'
+  },
+  url: {
     type: String,
     unique: true,
-    required: true,
+    required: true
   },
   date: {
     type: String,
-    required: true,
+    required: true
   },
-  datecreated: {
+  organisers: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Team'
+  },
+  status: {
+    type: String,
+    enum: ['planning', 'scheduled', 'osngoing', 'postponed', 'cancelled'],
+    default: 'scheduled'
+  },
+  participants: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'User'
+  },
+  invited: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'User'
+  },
+  interested: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'User'
+  },
+  date_created: {
     type: Date,
-    default: today.toLocaleDateString("en-US"),
+    default: today.toLocaleDateString('en-US')
   },
-  dateupdated: {
+  date_updated: {
     type: Date,
-    default: today.toLocaleDateString("en-US"),
-  },
-});
+    default: today.toLocaleDateString('en-US')
+  }
+})
 
-const events = mongoose.model("events", eventschema);
-module.exports = events;
+const events = mongoose.model('events', eventschema)
+module.exports = events

@@ -1,29 +1,22 @@
 const mongoose = require('mongoose')
-const today = require('./date.js')
-const post = new mongoose.Schema({
-  postedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  likes: {
-    type: [mongoose.Schema.Types.ObjectId],
+const today = require('./date')
+
+const share = new mongoose.Schema({
+  sharedBy: {
+    type: mongoose.Types.ObjectId,
     ref: 'User'
   },
-  content: {
+  body: {
     type: String,
     required: true
   },
-  media: {
-    type: String
+  likes: {
+    type: [mongoose.Types.ObjectId],
+    ref: 'User'
   },
   comments: {
-    type: [mongoose.Schema.Types.ObjectId],
+    type: [mongoose.Types.ObjectId],
     ref: 'Comment'
-  },
-  shares: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Share'
   },
   event: {
     type: mongoose.Schema.Types.ObjectId,
@@ -43,6 +36,5 @@ const post = new mongoose.Schema({
   }
 })
 
-const Post = mongoose.model('Post', post)
-
-module.exports = Post
+const Share = mongoose.model('Share', share)
+module.exports = Share
